@@ -1,10 +1,10 @@
 import dotenv from 'dotenv';
+import path from 'path';
 
 export default () => {
-  const { NODE_ENV, DOTENV_PATH } = process.env;
+  const { APP_ENV } = process.env;
 
-  if (NODE_ENV === 'development' && DOTENV_PATH) {
-    dotenv.config({ path: DOTENV_PATH })
+  if (APP_ENV === 'development') {
+    dotenv.config({ path: `${path.normalize(path.join(__dirname, '..', '..', '..'))}/.env` });
   }
 };
-

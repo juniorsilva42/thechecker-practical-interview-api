@@ -1,24 +1,30 @@
-/* 
- * External Dependecies 
+/*
+ * Internal Dependecies 
 */
-import express from 'express';
-import helmet from 'helmet';
-import compression from 'compression';
+import bootstrapEnvironment from '../lib/bootstrap';
+import application from '../app';
+import { dispatchDbConnection } from '../config/database';
 
-/* 
- * Internal Dependencies 
-*/
-import router from './router';
+const { APP_PORT = 3000 } = process.env;
 
-const app = express();
+bootstrapEnvironment();
+const startServer = async app => app.listen(APP_PORT, () => console.log(`Server is running in port ${APP_PORT}`));
 
-app.use(helmet());
-app.use(compression());
-app.keepAliveTimeout = 61 * 1000;
-app.timeout = 60 * 1000;
+const initializeApplication = async (app) => {
+  try {
+    const application = await startServer(app);
+    const db = await dispatchDbConnection();
 
-// Routes of configuration
-app.disable('x-powered-by');
-app.use(`/api/v1`, router());
+    return { 
+      application,
+      db
+    };
+  } catch (err) {
+    throw new Error('Application crash! :(');
+  }
+}
 
-module.exports = app;
+// Bootstrap in application
+initializeApplication(application);
+
+
