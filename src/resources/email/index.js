@@ -7,6 +7,8 @@ const {
   InternalServerError,
 } = require('../../lib/errors')
 
+import MailChimpService from '../../lib/services/mailchimp';
+
 const handleError = (err) => {
   if (err instanceof ValidationError) {
     return buildFailureResponse(400, err)
@@ -29,8 +31,8 @@ const handleError = (err) => {
  * @param {Object} res
  * @return {*}
 */
-const index = (req, res) => {
-  console.log('INDEX path of email endpoint is working!');
+const index = async (req, res) => {
+  console.log(await MailChimpService().getContactsFromList({ listId: '402ccf82d3' }));
 };
 
 const defaultHandler = (req, res) => {
