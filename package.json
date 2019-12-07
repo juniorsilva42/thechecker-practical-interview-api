@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start-dev": "BABEL_ENV=production ./node_modules/.bin/babel-node ./src/bin/server.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jsiilva1/thechecker-practical-interview-api.git"
@@ -30,5 +32,13 @@
     "eslint": "^6.7.2",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2"
+  },
+  "dependencies": {
+    "body-parser": "1.19.0",
+    "dotenv": "8.2.0",
+    "express": "4.17.1",
+    "http-status": "1.4.2",
+    "ramda": "0.26.1",
+    "winston": "3.2.1"
   }
 }
