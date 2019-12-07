@@ -11,7 +11,7 @@ module.exports = () => {
       password: '5f9d37722ffccdbb8b308225cb328e39-us4'
     };
 
-    return await baseDoRequest(verb, endpoint, auth, data, params, headers);
+    return await baseDoRequest({ verb, endpoint, auth, data, params, headers });
   };
 
   const getLists = async () => {

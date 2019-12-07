@@ -8,6 +8,7 @@ const {
 } = require('../../lib/errors')
 
 import MailChimpService from '../../lib/services/mailchimp';
+import TheCheckerService from '../../lib/services/thechecker';
 
 const handleError = (err) => {
   if (err instanceof ValidationError) {
@@ -32,7 +33,8 @@ const handleError = (err) => {
  * @return {*}
 */
 const index = async (req, res) => {
-  console.log(await MailChimpService().getContactsFromList({ listId: '402ccf82d3' }));
+  // console.log(await MailChimpService().getContactsFromList({ listId: '402ccf82d3' }));
+  console.log(await TheCheckerService().sendSingleVerification({ email: 'jsiilva@outlook.com.br' }));
 };
 
 const defaultHandler = (req, res) => {
