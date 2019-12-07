@@ -10,15 +10,17 @@ import compression from 'compression';
 */
 import router from './server/router';
 
-const app = express();
+module.exports = () => {
+  const app = express();
 
-app.use(helmet());
-app.use(compression());
-app.keepAliveTimeout = 61 * 1000;
-app.timeout = 60 * 1000;
+  app.use(helmet());
+  app.use(compression());
+  app.keepAliveTimeout = 61 * 1000;
+  app.timeout = 60 * 1000;
+  
+  // Routes of configuration
+  app.disable('x-powered-by');
+  app.use(`/api/v1`, router());
 
-// Routes of configuration
-app.disable('x-powered-by');
-app.use(`/api/v1`, router());
-
-module.exports = app;
+  return app;
+};

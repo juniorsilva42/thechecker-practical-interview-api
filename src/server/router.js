@@ -7,7 +7,7 @@ import cors from 'cors';
 import Status from 'http-status';
 
 /* 
- * Internal Dependecies 
+ * Internal Dependencies 
 */
 import { Success } from '../functions/support/response';
 import {

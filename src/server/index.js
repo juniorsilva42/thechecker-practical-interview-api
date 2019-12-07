@@ -1,9 +1,13 @@
 /*
  * Internal Dependecies 
 */
+import container from '../container';
 import bootstrapEnvironment from '../lib/bootstrap';
-import application from '../app';
-import { dispatchDbConnection } from '../config/database';
+// import { dispatchDbConnection } from '../config/database';
+
+const app = container.resolve('app');
+const database = container.resolve('database');
+
 
 const { APP_PORT = 3000 } = process.env;
 
@@ -13,11 +17,11 @@ const startServer = async app => app.listen(APP_PORT, () => console.log(`Server 
 const initializeApplication = async (app) => {
   try {
     const application = await startServer(app);
-    const db = await dispatchDbConnection();
+    const getSingletonDb = await database;
 
     return { 
       application,
-      db
+      db: getSingletonDb,
     };
   } catch (err) {
     throw new Error('Application crash! :(');
@@ -25,6 +29,4 @@ const initializeApplication = async (app) => {
 }
 
 // Bootstrap in application
-initializeApplication(application);
-
-
+initializeApplication(app);

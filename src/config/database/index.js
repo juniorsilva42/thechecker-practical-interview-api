@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import bootstrapEnvironment from '../../lib/bootstrap';
 bootstrapEnvironment();
 
-export const dispatchDbConnection = async () => {
+module.exports = async () => {
   try {
     const { 
       MONGO_HOST, 
