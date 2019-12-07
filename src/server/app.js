@@ -8,7 +8,7 @@ import compression from 'compression';
 /* 
  * Internal Dependencies 
 */
-import router from './server/router';
+import router from './router';
 
 module.exports = () => {
   const app = express();
