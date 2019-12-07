@@ -6,7 +6,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 
 /* 
- * Internal Dependecies 
+ * Internal Dependencies 
 */
 import router from './router';
 

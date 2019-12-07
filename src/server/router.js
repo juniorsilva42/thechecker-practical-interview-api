@@ -12,7 +12,7 @@ import Status from 'http-status';
 import { Success } from '../functions/support/response';
 import {
   index,
-} from '../resources/email';
+} from '../resources/verify';
 
 module.exports = () => {
   const router = Router();
@@ -26,7 +26,7 @@ module.exports = () => {
   router.get('/_health_check', (req, res) => res.status(Status.OK).json(Success('OK')));
 
   // Register routes of app/webapp gateways
-  router.get('/email', index);
+  router.get('/verify/:listId', index);
 
   return router;
 };

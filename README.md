@@ -2,15 +2,10 @@
 
 #### :football: A microservice to get e-mails from list' MailChimp and verify with TheChecker API
 
-Candidato: Ivanicio Jr
-
-E-mail: [jsiilva@outlook.com.br](mailto:jsiilva@outlook.com.br)
-
-Phone: +55 89 994112266
-
+Candidato: Ivanicio Jr   
+E-mail: [jsiilva@outlook.com.br]  (mailto:jsiilva@outlook.com.br)
+Phone: +55 89 994112266  
 [Linkedin](https://www.linkedin.com/in/jsilva49/) - [Github](https://github.com/jsiilva1/)
-
-  
 
 ## Table of Contents
 -  [Technology](#technology)
@@ -35,9 +30,25 @@ Here's a brief overview of technology stack:
 
 A brief overview of the project file structure
 ```
-
 ├── src
-
+   ├── bin (get bootstrap config and dispatch server)
+   ├── config (config metadata of api)
+   ├── functions (contain function for api base)
+   ├── lib (middle layer: contain functions to handle with the most diverse challenges that goes through the API)
+     ├── bootstrap (bootstrap app)
+     ├── errors (functions to handle with errors)
+     ├── http (functions to handle with http requests and responses)
+     ├── services (functions to handle with vendor apis)
+   ├── resources (plays the role of controllers)
+     ├── foo-resource (each resource contain functions to handle with each endpoint call and besides skema skeleton of responses and requests)
+   ├── server (takes care of start of server)
+     ├── index.js (dispatch server)
+     ├── router.js (dispatch routes )
+     ├── shutdown.js (takes care of errors signal on process)
+├── scripts (app scripts)
+├── tests (app tests)
+├── package.json
+├── README.md (you're here)
 ```
 ## Developing 
 In order to develop for this project you must choose among [Docker](https://docs.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) installed or NPM Scripts
@@ -71,7 +82,7 @@ $ yarn dev
 ```
 ### Running tests
 
-  Tests are separate in `functional`, `integration` and `unit`. You can either run them separately or run them all.
+  Tests are separate in `integration` and `unit`. You can either run them separately or run them all.
 
 -  **Run all tests:**
 

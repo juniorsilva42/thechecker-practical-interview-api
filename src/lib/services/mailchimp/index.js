@@ -11,7 +11,7 @@ module.exports = () => {
       password: '5f9d37722ffccdbb8b308225cb328e39-us4'
     };
 
-    return await baseDoRequest({ verb, endpoint, auth, data, params, headers });
+    return await baseDoRequest(verb, endpoint, auth, data, params, headers);
   };
 
   const getLists = async () => {
@@ -52,7 +52,7 @@ module.exports = () => {
         const { members } = response.data;
 
         if (members) {
-          members.map((member) => {
+          return members.map((member) => {
             const {
               id,
               email_address,
@@ -61,12 +61,12 @@ module.exports = () => {
               list_id,
             } = member;
 
-            console.log({ id, email_address, status, source, list_id });
+            return { id, email_address, status, source, list_id };
           });
         }
       }
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
     }
   };
 

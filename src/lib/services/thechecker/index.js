@@ -18,7 +18,7 @@ module.exports = () => {
           id 
         } = response.data;
 
-        console.log({ id, result, reason, free, role, user, domain });
+        return { id, result, reason, free, role, user, domain };
       }
     } catch (err) {
       console.log(err.message);
