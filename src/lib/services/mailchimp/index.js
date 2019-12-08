@@ -25,19 +25,22 @@ module.exports = () => {
         const { lists } = response.data;
 
         if (lists) {
-          lists.map((list) => {
+          return lists.map((list) => {
             const { 
               id, 
               name, 
-              date_created 
+              date_created,
+              stats,
             } = list;
 
-            console.log({ id, name, date_created });
+            const { member_count } = stats;
+
+            return { id, name, date_created, member_count };
           });
         }
       }
     } catch (err) {
-      console.log(err.message);
+      throw new Error(err.message);
     }
   };
 

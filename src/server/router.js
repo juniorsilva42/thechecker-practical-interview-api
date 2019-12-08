@@ -10,9 +10,7 @@ import Status from 'http-status';
  * Internal Dependencies 
 */
 import { Success } from '../functions/support/response';
-import {
-  index,
-} from '../resources/lists';
+import Lists from '../resources/lists';
 
 module.exports = () => {
   const router = Router();
@@ -27,7 +25,8 @@ module.exports = () => {
 
   // Register routes of app/webapp gateways
   // router.post('/lists', create);
-  router.get('/lists/verify/:listId', index);
+  router.get('/lists/verify/:listId', Lists.index);
+  router.get('/lists', Lists.getAll);
   //router.get('/lists', create);
   //router.get('/lists/:objectId', getById)
   

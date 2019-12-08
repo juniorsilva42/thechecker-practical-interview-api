@@ -64,6 +64,23 @@ const index = async (req, res) => {
   }
 };
 
+/**
+ * Controller handler endpoint to get all lists given mailchimp account
+ * @param {Object} req
+ * @param {Object} res
+ * @return {*}
+*/
+const getAll = async (req, res) => {
+  try {
+    // Get contacts from mailchimp list
+    const lists = await MailChimpService().getLists();
+        
+    return res.status(Status.OK).json(Success(lists));
+  } catch (err) {
+    return res.status(Status.INTERNAL_SERVER_ERROR).json(Success(err.message));
+  } 
+};
+
 const handleError = (err) => {
   if (err instanceof ValidationError) {
     return buildFailureResponse(400, err)
@@ -102,5 +119,6 @@ const defaultHandler = (req, res) => {
 
 module.exports = {
   index,
+  getAll,
   defaultHandler,
 };
