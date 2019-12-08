@@ -1,6 +1,6 @@
-# Practical Test TheChecker :white_check_mark:
+## Practical Test TheChecker :heavy_check_mark:
 
-#### :white_check_mark: :email: A microservice that gets a mailing list from mailchimp and checks it in TheChecker api
+#### :heavy_check_mark: :email: A microservice that gets a mailing list from mailchimp and checks it in TheChecker api
 
 Candidato: Ivanicio Jr   
 E-mail: jsiilva@outlook.com.br   
