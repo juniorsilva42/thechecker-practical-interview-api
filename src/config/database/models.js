@@ -1,5 +1,5 @@
-import List from '../../resources/lists/model';
+import ListModel from '../../resources/lists/model';
 
 export default ({
-  List,
-});
+  ListModel: ListModel,
+})

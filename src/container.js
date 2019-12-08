@@ -2,14 +2,14 @@ import { createContainer, asFunction, asValue } from 'awilix'
 
 import app from './server';
 import database from './config/database/index';
-import models from './config/database/models';
+import resources from './resources';
 
 const container = createContainer();
 
 container.register({
   app: asFunction(app).singleton(),
   database: asFunction(database).singleton(),
-  models: asValue(models),
+  resources: asValue(resources),
 });
 
 module.exports = container;

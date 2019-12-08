@@ -9,8 +9,4 @@ const { APP_PORT = 3000 } = process.env;
 bootstrapEnvironment();
 const startServer = async app => app.listen(APP_PORT, () => console.log(`Server is running in port ${APP_PORT}`));
 
-module.exports = async () => {
-  return {
-    start: await startServer(app()),
-  }
-};
+module.exports = async () => { start: await startServer(app()) };

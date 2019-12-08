@@ -1,18 +1,14 @@
 import mongoose from 'mongoose';
 
-const EmailSchema = new mongoose.Schema({
-  email: {
+const EmailModel = mongoose.model('Email', new mongoose.Schema({
+  email_address: {
     type: String,
-    required: true,
-  },
-  list: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'List',
     required: true,
   },
   status: {
     enum : ['deliverable', 'deliverable-but-risk', 'undeliverable', 'unknown'],
     required: true,
+    default: 'deliverable',
   },
   statusDetail: {
     type: String,
@@ -22,8 +18,6 @@ const EmailSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   }
-});
+}));
 
-const Email = mongoose.model('Email', EmailSchema);
-
-module.exports = Email;
+module.exports = EmailModel;

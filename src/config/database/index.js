@@ -13,8 +13,10 @@ module.exports = async () => {
 
     const uri = `mongodb://${MONGO_HOST}:${MONGO_PORT}/${MONGO_MAIN_COLLECTION}`;
 
-    return await
+    const tryToConnect = await
         mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+      
+    return tryToConnect;
   } catch (err) {
     throw new Error(err);
   }

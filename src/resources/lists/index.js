@@ -17,6 +17,7 @@ import {
   InternalServerError,
 } from '../../lib/errors';
 import { buildFailureResponse } from '../../lib/http/response';
+import ListModel from '../../resources/lists/model';
 
 /**
  * Controller handler endpoint to index of validation
@@ -24,7 +25,7 @@ import { buildFailureResponse } from '../../lib/http/response';
  * @param {Object} res
  * @return {*}
 */
-const index = async (req, res) => {
+const verifyContactsFromList = async (req, res) => {
   const { listId } = req.params;
 
   // Get contacts from mailchimp list
@@ -74,7 +75,7 @@ const getAll = async (req, res) => {
   try {
     // Get contacts from mailchimp list
     const lists = await MailChimpService().getLists();
-        
+      
     return res.status(Status.OK).json(Success(lists));
   } catch (err) {
     return res.status(Status.INTERNAL_SERVER_ERROR).json(Success(err.message));
@@ -118,7 +119,7 @@ const defaultHandler = (req, res) => {
 }
 
 module.exports = {
-  index,
+  verifyContactsFromList,
   getAll,
   defaultHandler,
 };

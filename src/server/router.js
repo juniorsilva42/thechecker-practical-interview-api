@@ -20,15 +20,12 @@ module.exports = () => {
   router.use(bodyParser.json());
   router.use(bodyParser.urlencoded({ extended: true }));
 
-  // Default route to api health check
+  // Default route to check api health
   router.get('/_health_check', (req, res) => res.status(Status.OK).json(Success('API is running with a lot health!')));
 
   // Register routes of app/webapp gateways
-  // router.post('/lists', create);
-  router.get('/lists/verify/:listId', Lists.index);
+  router.get('/lists/verify/:listId', Lists.verifyContactsFromList);
   router.get('/lists', Lists.getAll);
-  //router.get('/lists', create);
-  //router.get('/lists/:objectId', getById)
   
   return router;
 };
