@@ -4,6 +4,7 @@ const EmailModel = mongoose.model('Email', new mongoose.Schema({
   email_address: {
     type: String,
     required: true,
+    unique: true,
   },
   status: {
     enum : ['deliverable', 'deliverable-but-risk', 'undeliverable', 'unknown'],

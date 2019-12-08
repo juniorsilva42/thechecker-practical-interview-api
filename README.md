@@ -1,9 +1,9 @@
-# Teste prático TheChecker
+# Practical Test TheChecker :white_check_mark:
 
-#### :football: A microservice to get e-mails from list' MailChimp and verify with TheChecker API
+#### :white_check_mark: :email: A microservice that gets a mailing list from mailchimp and checks it in TheChecker api
 
 Candidato: Ivanicio Jr   
-E-mail: [jsiilva@outlook.com.br]  (mailto:jsiilva@outlook.com.br)
+E-mail: jsiilva@outlook.com.br   
 Phone: +55 89 994112266  
 [Linkedin](https://www.linkedin.com/in/jsilva49/) - [Github](https://github.com/jsiilva1/)
 
