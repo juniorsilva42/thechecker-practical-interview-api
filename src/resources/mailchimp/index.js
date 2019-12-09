@@ -40,6 +40,34 @@ const authorize = async (req, res) => {
   }
 };
 
+/**
+ * Controller endpoint to get metadata of logged user
+ * @param {Object} req
+ * @param {Object} res
+ * @return {*}
+*/
+const getUserMetadata = async (req, res) => {
+  try {
+    const { access_token } = req.body;
+
+    const response = await axios({
+      method: 'GET',
+      url: 'https://login.mailchimp.com/oauth2/metadata',
+      headers: {
+        'Authorization': `Bearer ${access_token}`
+      },
+    });
+
+    const { data } = response;
+    
+    return res.status(Status.OK).json(Success(data));
+  } catch (err) {
+    return res.status(Status.UNAUTHORIZED).json(Fail('Error to authenticate with Mailchimp.'));
+  }
+};
+
+
 module.exports = {
   authorize,
+  getUserMetadata
 };

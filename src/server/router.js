@@ -26,8 +26,11 @@ module.exports = () => {
 
   // Register routes of app/webapp gateways
   router.get('/lists/verify/:listId', Lists.verifyContactsFromList);
+  router.post('/lists/verify', Lists.verifyContactByEmail);
   router.get('/lists', Lists.getAll);
+
   router.post('/mailchimp/authorize', Mailchimp.authorize);
+  router.get('/mailchimp/user', Mailchimp.getUserMetadata);
 
   return router;
 };

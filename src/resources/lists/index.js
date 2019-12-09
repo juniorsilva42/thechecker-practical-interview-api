@@ -7,7 +7,7 @@ import Status from 'http-status';
 /* 
  * Internal Dependecies 
 */
-import { Success } from '../../functions/support/response';
+import { Success, Fail } from '../../functions/support/response';
 import MailChimpService from '../../lib/services/mailchimp';
 import TheCheckerService from '../../lib/services/thechecker';
 import {
@@ -17,7 +17,6 @@ import {
   InternalServerError,
 } from '../../lib/errors';
 import { buildFailureResponse } from '../../lib/http/response';
-import ListModel from '../../resources/lists/model';
 
 /**
  * Controller handler endpoint to index of validation
@@ -63,6 +62,43 @@ const verifyContactsFromList = async (req, res) => {
 
     return res.status(Status.OK).json(Success(checkedQueue));
   }
+};
+
+/**
+ * Controller handler endpoint to index of validation
+ * @param {Object} req
+ * @param {Object} res
+ * @return {*}
+*/
+const verifyContactByEmail = async (req, res) => {
+  const { email } = req.body;
+
+  if (email) {
+    return res.status(Status.OK).json(Success({ email, verified: true }));
+    /*
+        try {
+      const checkMail = 
+        await TheCheckerService().sendSingleVerification({ email });
+
+        if (checkMail) {
+          const data = {
+            email, 
+            isChecked: true,
+            result: checkMail.result,
+            reason: checkMail.reason,
+          };
+
+          return res.status(Status.OK).json(Success(data));
+        } else {
+          return res.status(Status.INTERNAL_SERVER_ERROR)
+          .json(Fail('Something went very wrong. Our team is already aligned with this.'));
+        }
+    } catch (err) {
+      return res.status(Status.INTERNAL_SERVER_ERROR)
+        .json(Fail('Something went very wrong. Our team is already aligned with this.'));
+    }
+    */
+  } 
 };
 
 /**
@@ -120,6 +156,7 @@ const defaultHandler = (req, res) => {
 
 module.exports = {
   verifyContactsFromList,
+  verifyContactByEmail,
   getAll,
   defaultHandler,
 };

@@ -6,12 +6,15 @@ module.exports = () => {
   const mailchimpAuthRequest = async ({ verb, endpoint, data = {}, params = {}, headers = {} }) => {
     headers['Content-Type'] = 'application/json';
 
+    const uri = 'https://login.mailchimp.com/oauth2/metadata';
+    /*
     const auth = {
       username: 'jsiilva1',
       password: '5f9d37722ffccdbb8b308225cb328e39-us4'
     };
 
     return await baseDoRequest(verb, endpoint, auth, data, params, headers);
+    */
   };
 
   const getLists = async () => {
