@@ -28,9 +28,10 @@ module.exports = () => {
   router.get('/lists/verify/:listId', Lists.verifyContactsFromList);
   router.post('/lists/verify', Lists.verifyContactByEmail);
   router.get('/lists', Lists.getAll);
+  router.get('/lists/:listId', Lists.getMembers)
 
   router.post('/mailchimp/authorize', Mailchimp.authorize);
-  router.get('/mailchimp/user', Mailchimp.getUserMetadata);
+  router.post('/mailchimp/user', Mailchimp.getUserMetadata);
 
   return router;
 };

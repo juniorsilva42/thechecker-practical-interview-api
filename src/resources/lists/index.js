@@ -101,6 +101,18 @@ const verifyContactByEmail = async (req, res) => {
   } 
 };
 
+const getMembers = async (req, res) => {
+  const { listId } = req.params;
+  const { username } = req.body;
+
+  try {
+    // Get contacts from mailchimp list
+    const contacts = await MailChimpService().getContactsFromList({ listId, getContactsFromList: username });
+
+    return res.status(Status.OK).json(Success(contacts));
+  } catch (err) {}
+}
+
 /**
  * Controller handler endpoint to get all lists given mailchimp account
  * @param {Object} req
@@ -109,8 +121,10 @@ const verifyContactByEmail = async (req, res) => {
 */
 const getAll = async (req, res) => {
   try {
+    const { username } = req.params;
+
     // Get contacts from mailchimp list
-    const lists = await MailChimpService().getLists();
+    const lists = await MailChimpService().getLists({ username });
       
     return res.status(Status.OK).json(Success(lists));
   } catch (err) {
@@ -158,5 +172,6 @@ module.exports = {
   verifyContactsFromList,
   verifyContactByEmail,
   getAll,
+  getMembers,
   defaultHandler,
 };
