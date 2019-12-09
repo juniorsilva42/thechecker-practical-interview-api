@@ -11,6 +11,7 @@ import Status from 'http-status';
 */
 import { Success } from '../functions/support/response';
 import Lists from '../resources/lists';
+import Mailchimp from '../resources/mailchimp';
 
 module.exports = () => {
   const router = Router();
@@ -26,6 +27,7 @@ module.exports = () => {
   // Register routes of app/webapp gateways
   router.get('/lists/verify/:listId', Lists.verifyContactsFromList);
   router.get('/lists', Lists.getAll);
-  
+  router.post('/mailchimp/authorize', Mailchimp.authorize);
+
   return router;
 };
