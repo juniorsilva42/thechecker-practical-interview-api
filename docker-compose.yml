@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  app:
+    container_name: thechecker-practical-interview-api
+    build: .
+    restart: always
+    volumes:
+      - ./:/home/app/thechecker-practical-interview-api
+      - /home/app/thechecker-practical-interview-api/node_modules
+    command: node_modules/.bin/nodemon -L --exec yarn dev
+    environment:
+      APP_ENV: development
+      DOCKER_HOST: host.docker.internal
+    ports:
+      - 5000:5000
+    links:
+      - db
+    depends_on:
+      - db
+
+  db:
+    container_name: thechecker-practical-interview-db
+    image: mongo
+    ports:
+      - 27017:27017
