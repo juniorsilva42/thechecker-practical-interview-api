@@ -124,9 +124,18 @@ $ yarn test-unit
 
 Start the flow of Oauth Login to Mailchimp.
 
-Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, 
-
 1. The `Client` makes an HTTP request to Oauth login  .
+1. OAuth authentication type is through code, so get `code` in the request body.
+2. Try login through a request to Mailchimp API with the required Oauth data to finalize authentication
+3. In success case, return the response to the `Client` with access_token data (HTTP response).
+
+![mailchhimp-auth-diagram](https://raw.githubusercontent.com/jsiilva1/thechecker-practical-interview-api/master/docs/diagrams/POST-mailchimp-authorize.png?token=ADHLA2UMD45URZ2OVRVMORC57A2UK)
+
+#### 2. POST /mailchimp/user
+
+Get the current authenticated user data
+
+1. The `Client` makes an HTTP request to Oauth login .
 1. OAuth authentication type is through code, so get `code` in the request body.
 2. Try login through a request to Mailchimp API with the required Oauth data to finalize authentication
 3. In success case, return the response to the `Client` with access_token data (HTTP response).
