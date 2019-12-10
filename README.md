@@ -131,19 +131,4 @@ Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum 
 2. Try login through a request to Mailchimp API with the required Oauth data to finalize authentication
 3. In success case, return the response to the `Client` with access_token data (HTTP response).
 
-```sequence
-    participant Client
-    participant API
-    participant Database
-    participant Provider
-
-    Client ->>+ API: HTTP POST /boletos
-        Note over Client,API: Body: boleto_info (amount, expiration, ...), queue_url
-    API ->>+ Database: db.create()
-    Database -->>- API: "created"
-    API ->>+ Provider: register()
-    Provider -->>- API: status
-    API ->>+ Database: db.update(status)
-    Database -->>- API: "updated"
-    API -->>- Client: 201 created
-```
+![mailchhimp-auth-diagram](https://raw.githubusercontent.com/jsiilva1/thechecker-practical-interview-api/master/docs/diagrams/POST-mailchimp-authorize.png?token=ADHLA2UMD45URZ2OVRVMORC57A2UK)
