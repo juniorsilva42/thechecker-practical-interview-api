@@ -4,6 +4,10 @@ const ListModel = mongoose.model('Lists', new mongoose.Schema({
   name: {
     type: String,
   },
+  mailchimpListId: {
+    type: String,
+    unique: true,
+  },
   emails: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Emails',

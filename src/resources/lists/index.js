@@ -26,80 +26,25 @@ import EmailModel from '../emails/model';
  * @param {Object} res
  * @return {*}
 */
-const verifyContactsFromList = async (req, res) => {
-  const { listId } = req.params;
-
-  // Get contacts from mailchimp list
-  const contacts = await MailChimpService().getContactsFromList({ listId });
-  
-  let checkedQueue = [];
-
-  // Parse contacts 
-  if (contacts) {
-    for (let contact of contacts) {
-      const { email_address: email } = contact;
-      
-      try {
-        const checkMail = 
-          await TheCheckerService().sendSingleVerification({ email });
-
-          if (checkMail) {
-            checkedQueue.push({ 
-              email, 
-              isChecked: true,
-              result: checkMail.result,
-              reason: checkMail.reason,
-            });
-          } else {
-            checkedQueue.push({
-              email, 
-              isChecked: false,
-            });
-          }
-      } catch (err) {
-        return res.status(Status.INTERNAL_SERVER_ERROR)
-          .json(Fail('Something went very wrong. Our team is already aligned with this.'));
-      }
-    }
-
-    return res.status(Status.OK).json(Success(checkedQueue));
-  }
-};
-
-/**
- * Controller handler endpoint to index of validation
- * @param {Object} req
- * @param {Object} res
- * @return {*}
-*/
 const verifyContactByEmail = async (req, res) => {
   const { email } = req.body;
 
   if (email) {
-    return res.status(Status.OK).json(Success({ email, verified: true }));
-    /*
-        try {
+    try {
       const checkMail = 
         await TheCheckerService().sendSingleVerification({ email });
 
         if (checkMail) {
-          const data = {
-            email, 
-            isChecked: true,
-            result: checkMail.result,
-            reason: checkMail.reason,
-          };
+          // Update info of emails
+          const getSpecificEmail = await EmailModel.findOne({ email_address: email });
+          const updatedEmail = await EmailModel.findByIdAndUpdate(getSpecificEmail._id, { status: checkMail.result, statusDetail: checkMail.reason }, { new: true });
 
-          return res.status(Status.OK).json(Success(data));
-        } else {
-          return res.status(Status.INTERNAL_SERVER_ERROR)
-          .json(Fail('Something went very wrong. Our team is already aligned with this.'));
+          return res.status(Status.OK).json(Success(updatedEmail));
         }
     } catch (err) {
       return res.status(Status.INTERNAL_SERVER_ERROR)
         .json(Fail('Something went very wrong. Our team is already aligned with this.'));
     }
-    */
   } 
 };
 
@@ -142,9 +87,9 @@ const getAll = async (req, res) => {
 */
 const create = async (req, res) => {
   try {
-    const { name, emailsInfo } = req.body;
+    const { name, mailchimpListId , emailsInfo } = req.body;
 
-    let list = await ListModel.create({ name });
+    let list = await ListModel.create({ name, mailchimpListId });
     
     await Promise.all(emailsInfo.map(async (emailInfo) => {
       const listEmail = new EmailModel({ ...emailInfo, listId: list._id });
@@ -196,6 +141,24 @@ const update = async (req, res) => {
   }
 };
 
+/**
+ * Controller handler endpoint to get list by mailchimp list id to pre save verification. This avoid duplicates
+ * @param {Object} req
+ * @param {Object} res
+ * @return {*}
+*/
+const listPreSave = async (req, res) => {
+  try {
+    const { mailchimpListId } = req.params;
+
+    const listPreSave = await ListModel.findOne({ mailchimpListId });
+
+    return res.status(Status.OK).json(Success(listPreSave));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const handleError = (err) => {
   if (err instanceof ValidationError) {
     return buildFailureResponse(400, err)
@@ -236,7 +199,7 @@ module.exports = {
   create,
   getAllLists,
   update,
-  verifyContactsFromList,
+  listPreSave,
   verifyContactByEmail,
   getAll,
   getMembers,

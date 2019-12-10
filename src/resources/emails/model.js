@@ -7,10 +7,11 @@ const EmailModel = mongoose.model('Emails', new mongoose.Schema({
   },
   status: {
     type: String,
-    default: 'deliverable',
+    default: 'not_verified',
   },
   statusDetail: {
     type: String,
+    default: '',
   },
   listId: {
     type: mongoose.Schema.Types.ObjectId,

@@ -35,14 +35,15 @@ module.exports = () => {
   router.put('/lists/:listId', Lists.update);
 
   // Lists endpoint to handle with mailchimp
-  router.get('/lists/verify/:listId', Lists.verifyContactsFromList);
-  router.post('/lists/verify', Lists.verifyContactByEmail);
-  router.get('/lists/mailchimp', Lists.getAll);
-  router.get('/lists/:listId', Lists.getMembers);
+  router.get('/provider/mailchimp/lists', Lists.getAll);
+  router.get('/provider/mailchimp/lists/:listId', Lists.getMembers);
+  router.get('/provider/mailchimp/lists/presave/:mailchimpListId', Lists.listPreSave);
 
   // Lists endpoint to handle with auth mailchimp
-  router.post('/mailchimp/authorize', Mailchimp.authorize);
-  router.post('/mailchimp/user', Mailchimp.getUserMetadata);
+  router.post('/provider/mailchimp/authorize', Mailchimp.authorize);
+  router.post('/provider/mailchimp/user', Mailchimp.getUserMetadata);
+
+  router.post('/lists/verify', Lists.verifyContactByEmail);
 
   return router;
 };
