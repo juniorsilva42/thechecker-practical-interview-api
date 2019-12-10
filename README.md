@@ -11,8 +11,7 @@ Phone: +55 89 994112266
 -  [Technology](#technology)
 -  [Developing](#developing)
 -  [First Install](#first-install)
--  [Running tests](#running-tests)
--  [Installing new dependencies](#installing-new-dependencies)
+-  [Data flow](#data-flow)
 
 ## Technology
 Here's a brief overview of technology stack:
@@ -94,31 +93,6 @@ $ docker-compose up
 
 ```
 
-### Running tests
-
-  Tests are separate in `integration` and `unit`. You can either run them separately or run them all.
-
--  **Run all tests:**
-
-```sh
-
-$ yarn test
-
-```
--  **Run only `integration` tests:**
-
-```sh
-
-$ yarn test-integration
-
-``` 
--  **Run only `unit` tests:**
-
-```sh
-
-$ yarn test-unit
-
-```
 ## Data Flow
 #### 1. POST /mailchimp/authorize
 
