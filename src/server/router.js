@@ -24,12 +24,23 @@ module.exports = () => {
   // Default route to check api health
   router.get('/_health_check', (req, res) => res.status(Status.OK).json(Success('API is running with a lot health!')));
 
-  // Register routes of app/webapp gateways
+  /*
+   *
+   * Register routes of app/webapp gateways
+  */
+
+  // Lists endpoints to handle with db
+  router.post('/lists', Lists.create);
+  router.get('/lists', Lists.getAllLists);
+  router.put('/lists/:listId', Lists.update);
+
+  // Lists endpoint to handle with mailchimp
   router.get('/lists/verify/:listId', Lists.verifyContactsFromList);
   router.post('/lists/verify', Lists.verifyContactByEmail);
-  router.get('/lists', Lists.getAll);
-  router.get('/lists/:listId', Lists.getMembers)
+  router.get('/lists/mailchimp', Lists.getAll);
+  router.get('/lists/:listId', Lists.getMembers);
 
+  // Lists endpoint to handle with auth mailchimp
   router.post('/mailchimp/authorize', Mailchimp.authorize);
   router.post('/mailchimp/user', Mailchimp.getUserMetadata);
 

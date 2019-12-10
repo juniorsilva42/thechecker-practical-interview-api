@@ -17,6 +17,8 @@ import {
   InternalServerError,
 } from '../../lib/errors';
 import { buildFailureResponse } from '../../lib/http/response';
+import ListModel from './model';
+import EmailModel from '../emails/model';
 
 /**
  * Controller handler endpoint to index of validation
@@ -132,6 +134,68 @@ const getAll = async (req, res) => {
   } 
 };
 
+/**
+ * Controller handler endpoint to create a new list and emails associated 
+ * @param {Object} req
+ * @param {Object} res
+ * @return {*}
+*/
+const create = async (req, res) => {
+  try {
+    const { name, emailsInfo } = req.body;
+
+    let list = await ListModel.create({ name });
+    
+    await Promise.all(emailsInfo.map(async (emailInfo) => {
+      const listEmail = new EmailModel({ ...emailInfo, listId: list._id });
+
+      await listEmail.save();
+
+      list.emails.push(listEmail);
+    }));
+
+    await list.save();
+
+    return res.status(Status.OK).json(Success(list));
+  } catch (err) {
+    return res.status(Status.SERVICE_UNAVAILABLE).json(Fail('Error while create lists'));
+  }
+};
+
+/**
+ * Controller handler endpoint to get all lists from db 
+ * @param {Object} req
+ * @param {Object} res
+ * @return {*}
+*/
+const getAllLists = async (req, res) => {
+  try {
+    const lists = await ListModel.find().populate('emails');
+
+    return res.status(Status.OK).json(Success(lists));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+/**
+ * Controller handler endpoint to update a given list ID
+ * @param {Object} req
+ * @param {Object} res
+ * @return {*}
+*/
+const update = async (req, res) => {
+  try {
+    const { listId } = req.params;
+
+    const list = await ListModel.findByIdAndUpdate(listId, { verified: true }, { new: true });
+
+    return res.status(Status.OK).json(Success(list));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const handleError = (err) => {
   if (err instanceof ValidationError) {
     return buildFailureResponse(400, err)
@@ -169,6 +233,9 @@ const defaultHandler = (req, res) => {
 }
 
 module.exports = {
+  create,
+  getAllLists,
+  update,
   verifyContactsFromList,
   verifyContactByEmail,
   getAll,

@@ -1,9 +1,16 @@
 import mongoose from 'mongoose';
 
-const ListModel = mongoose.model('List', new mongoose.Schema({
+const ListModel = mongoose.model('Lists', new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+  },
+  emails: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Emails',
+  }],
+  verified: {
+    type: Boolean,
+    default: false,
   },
   createdAt: {
     type: Date,
