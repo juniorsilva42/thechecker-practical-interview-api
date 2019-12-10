@@ -140,4 +140,4 @@ Get the current authenticated user data
 2. Try login through a request to Mailchimp API with the required Oauth data to finalize authentication
 3. In success case, return the response to the `Client` with access_token data (HTTP response).
 
-![mailchhimp-auth-diagram](https://raw.githubusercontent.com/jsiilva1/thechecker-practical-interview-api/master/docs/diagrams/POST-mailchimp-authorize.png?token=ADHLA2UMD45URZ2OVRVMORC57A2UK)
+![mailchhimp-auth-diagram](https://raw.githubusercontent.com/jsiilva1/thechecker-practical-interview-api/master/docs/diagrams/POST-mailchimp-user-data.png?token=ADHLA2XTQATHGB6XYBNXA7S57A3S6)
