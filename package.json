@@ -5,12 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "APP_ENV=development BABEL_ENV=development ./node_modules/.bin/babel-node ./src/index",
-    "dev": "APP_ENV=development ./node_modules/.bin/nodemon ./node_modules/.bin/babel-node ./src/index",
-    "lint": "eslint 'src/**/*.js'",
-    "test": "nyc ava --verbose --serial 'tests/**/*.js'",
-    "test-functional": "ava --verbose --serial 'test/functional/**/*.js'",
-    "test-integration": "ava --verbose 'test/integration/**/*.js'",
-    "test-unit": "./node_modules/.bin/ava --verbose tests/unit/**/*.js"
+    "dev": "APP_ENV=development ./node_modules/.bin/nodemon ./node_modules/.bin/babel-node ./src/index"
+
   },
   "repository": {
     "type": "git",
@@ -51,7 +47,6 @@
     "express": "4.17.1",
     "helmet": "3.21.2",
     "http-status": "1.4.2",
-    "joi": "14.3.1",
     "mongoose": "5.7.14",
     "qs": "^6.9.1",
     "ramda": "0.26.1"
