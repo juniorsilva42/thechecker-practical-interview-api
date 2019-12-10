@@ -48,6 +48,12 @@ const verifyContactByEmail = async (req, res) => {
   } 
 };
 
+/**
+ * Controller handler endpoint to get members from mailchimp
+ * @param {Object} req
+ * @param {Object} res
+ * @return {*}
+*/
 const getMembers = async (req, res) => {
   const { listId } = req.params;
   const { username } = req.body;
@@ -85,7 +91,7 @@ const getAll = async (req, res) => {
  * @param {Object} res
  * @return {*}
 */
-const create = async (req, res) => {
+const create = async (req, res, next) => {
   try {
     const { name, mailchimpListId , emailsInfo } = req.body;
 
@@ -101,6 +107,8 @@ const create = async (req, res) => {
 
     await list.save();
 
+    next();
+    
     return res.status(Status.OK).json(Success(list));
   } catch (err) {
     return res.status(Status.SERVICE_UNAVAILABLE).json(Fail('Error while create lists'));

@@ -1,6 +1,11 @@
 import dotenv from 'dotenv';
 import path from 'path';
 
+/**
+ * Bootstrap env of app
+ * 
+ * @return {*}
+*/
 export default () => {
   const { APP_ENV } = process.env;
 

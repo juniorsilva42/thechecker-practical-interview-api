@@ -1,5 +1,12 @@
 import { assoc } from 'ramda';
 
+/**
+ * Helper to standardize responses
+ * 
+ * @param success
+ * 
+ * @return {data, version, date}
+*/
 const defaultResponse = (success = true) => ({
   success,
   version: 'v1',

@@ -3,6 +3,11 @@ import mongoose from 'mongoose';
 import bootstrapEnvironment from '../../lib/bootstrap';
 bootstrapEnvironment();
 
+/**
+ * Connect with mongodb database
+ *
+ * @return {*}.
+ */
 module.exports = async () => {
   try {
     const { 

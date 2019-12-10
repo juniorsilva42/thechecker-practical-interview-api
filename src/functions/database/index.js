@@ -1,5 +1,10 @@
 import Promise from 'bluebird';
 
+/**
+ * Ensure database is connected
+ *
+ * @return {*}.
+ */
 const ensureDatabaseIsConnected = (db, options = {}) => {
   const MAX_RETRIES = 10;
   const RETRY_TIMEOUT = 1000;

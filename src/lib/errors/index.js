@@ -1,3 +1,8 @@
+/**
+ * To handle with errors type in execution time or requests/responses
+ * 
+ * @return {*}
+*/
 class NotFoundError extends Error {
   constructor (error = {}) {
     super(error.message)

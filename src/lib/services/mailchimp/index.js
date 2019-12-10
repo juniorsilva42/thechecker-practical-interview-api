@@ -1,14 +1,31 @@
 import { baseDoRequest } from '../../../functions/support/request';
 
+/**
+ * To handle with mailchimp API
+ * 
+ * @return {*}
+*/
 module.exports = () => {
   const baseUrl = 'https://us4.api.mailchimp.com/3.0';
 
+  /**
+   * Request in mailchimp API with Basic Authorization on headers
+   * 
+   * @return {*}
+  */  
   const mailchimpAuthRequest = async ({ verb, endpoint, data = {}, auth = {}, params = {}, headers = {} }) => {
     headers['Content-Type'] = 'application/json';
 
     return await baseDoRequest(verb, endpoint, auth, data, params, headers);
   };
 
+  /**
+   * Get lists from username
+   * 
+   * @param {username}
+   * 
+   * @return {lists}
+  */   
   const getLists = async ({ username }) => {
     try {
       const auth = {
@@ -45,6 +62,14 @@ module.exports = () => {
     }
   };
 
+  /**
+   * Get contacts from a given list and username
+   * 
+   * @param {listId} mailchimp listId
+   * @param {usernameAccount} mailchimp username
+   * 
+   * @return {contacts}
+  */     
   const getContactsFromList = async ({ listId, usernameAccount }) => {
     try {
       const auth = {
