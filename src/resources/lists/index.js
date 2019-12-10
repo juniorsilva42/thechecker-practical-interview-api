@@ -129,13 +129,31 @@ const getAllLists = async (req, res) => {
  * @param {Object} res
  * @return {*}
 */
-const update = async (req, res) => {
+const updateStatus = async (req, res) => {
   try {
     const { listId } = req.params;
 
     const list = await ListModel.findByIdAndUpdate(listId, { verified: true }, { new: true });
 
     return res.status(Status.OK).json(Success(list));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+/**
+ * Controller handler endpoint get results by id
+ * @param {Object} req
+ * @param {Object} res
+ * @return {*}
+*/
+const getById = async (req, res) => {
+  try {
+    const { listId } = req.params;
+
+    const selectedList = await ListModel.find({ mailchimpListId: listId }).populate('emails');
+
+    return res.status(Status.OK).json(Success(selectedList));
   } catch (err) {
     console.log(err);
   }
@@ -198,9 +216,10 @@ const defaultHandler = (req, res) => {
 module.exports = {
   create,
   getAllLists,
-  update,
+  updateStatus,
   listPreSave,
   verifyContactByEmail,
+  getById,
   getAll,
   getMembers,
   defaultHandler,

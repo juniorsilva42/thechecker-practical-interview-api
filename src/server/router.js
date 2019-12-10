@@ -32,7 +32,8 @@ module.exports = () => {
   // Lists endpoints to handle with db
   router.post('/lists', Lists.create);
   router.get('/lists', Lists.getAllLists);
-  router.put('/lists/:listId', Lists.update);
+  router.get('/lists/:listId', Lists.getById);
+  router.put('/lists/:listId', Lists.updateStatus);
 
   // Lists endpoint to handle with mailchimp
   router.get('/provider/mailchimp/lists', Lists.getAll);
