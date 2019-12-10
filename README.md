@@ -16,10 +16,10 @@ Phone: +55 89 994112266
 
 ## Technology
 Here's a brief overview of technology stack:
--  **[Docker](https://docs.docker.com)** and **[Docker Compose](https://docs.docker.com/compose/)** to create our development and test environments.
--  **[Mongo](https://www.mongodb.com/)** as to store our data and **[Mongoose](https://mongoosejs.com/)** as a Node.js ORM.
--  **[Ava](https://github.com/avajs/ava)** as a test runner and **[Chai](http://chaijs.com)** to do some more advanced test assertions.
 -  **[Express](https://github.com/expressjs/express)** as a tool to build the web server that handles our boleto endpoints.
+-  **[Mongo](https://www.mongodb.com/)** as to store our data and **[Mongoose](https://mongoosejs.com/)** as a Node.js ORM.
+-  **[Docker](https://docs.docker.com)** and **[Docker Compose](https://docs.docker.com/compose/)** as useful option to create development environment.
+-  **[Ava](https://github.com/avajs/ava)** as a test runner and **[Chai](http://chaijs.com)** to do some more advanced test assertions.
 -  **[Nodemon](https://nodemon.io/)** as a tool to use for development file reload.
  -  **[CORS](https://www.npmjs.com/package/cors)** a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options
  - **[Body-parser](https://www.npmjs.com/package/body-parser)** - Node.js body parsing middleware;
@@ -53,7 +53,7 @@ A brief overview of the project file structure
 ## Developing 
 In order to develop for this project you must choose among [Docker](https://docs.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) installed or NPM Scripts
 
-### First Install with NPM
+### Install and run with NPM
 If you never developed in this repo before:
 
 1.  **Clone the repository:**
@@ -71,15 +71,29 @@ $ yarn or npm install
 
 ```
 
-### Running the server
-
-1.  **Start development server (with nodemon):**
+1.  **Start development live server**
 
 ```sh
 
 $ yarn dev
 
 ```
+
+## Or you can too
+### Install and run with Docker
+```sh
+
+$ git clone git@github.com:jsiilva1/thechecker-practical-test
+
+```
+2.  **Orchestrate the images**
+
+```sh
+
+$ docker-compose up
+
+```
+
 ### Running tests
 
   Tests are separate in `integration` and `unit`. You can either run them separately or run them all.
@@ -104,4 +118,32 @@ $ yarn test-integration
 
 $ yarn test-unit
 
+```
+## Data Flow
+#### 1. POST /mailchimp/authorize
+
+Start the flow of Oauth Login to Mailchimp.
+
+Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, Lorem Ipsum dor, 
+
+1. The `Client` makes an HTTP request to Oauth login  .
+1. OAuth authentication type is through code, so get `code` in the request body.
+2. Try login through a request to Mailchimp API with the required Oauth data to finalize authentication
+3. In success case, return the response to the `Client` with access_token data (HTTP response).
+
+```sequence
+    participant Client
+    participant API
+    participant Database
+    participant Provider
+
+    Client ->>+ API: HTTP POST /boletos
+        Note over Client,API: Body: boleto_info (amount, expiration, ...), queue_url
+    API ->>+ Database: db.create()
+    Database -->>- API: "created"
+    API ->>+ Provider: register()
+    Provider -->>- API: status
+    API ->>+ Database: db.update(status)
+    Database -->>- API: "updated"
+    API -->>- Client: 201 created
 ```
