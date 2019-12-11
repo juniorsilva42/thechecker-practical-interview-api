@@ -74,7 +74,7 @@ const getMembers = async (req, res) => {
 */
 const getAll = async (req, res) => {
   try {
-    const { username } = req.params;
+    const { username } = req.body;
 
     // Get contacts from mailchimp list
     const lists = await MailChimpService().getLists({ username });

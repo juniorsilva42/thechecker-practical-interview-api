@@ -1,12 +1,20 @@
 import { baseDoRequest } from '../../../functions/support/request';
 
+import bootstrapEnvironment from '../../bootstrap';
+bootstrapEnvironment();
+
+const { 
+  MAILCHIMP_API_KEY, 
+  MAILCHIMP_API_SERVER_PREFIX 
+} = process.env;
+
 /**
  * To handle with mailchimp API
  * 
  * @return {*}
 */
 module.exports = () => {
-  const baseUrl = 'https://us4.api.mailchimp.com/3.0';
+  const baseUrl = `https://${MAILCHIMP_API_SERVER_PREFIX}.api.mailchimp.com/3.0`;
 
   /**
    * Request in mailchimp API with Basic Authorization on headers
@@ -30,7 +38,7 @@ module.exports = () => {
     try {
       const auth = {
         username,
-        password: '5f9d37722ffccdbb8b308225cb328e39-us4'
+        password: `${MAILCHIMP_API_KEY}-${MAILCHIMP_API_SERVER_PREFIX}`
       };
 
       const response = await mailchimpAuthRequest({
@@ -74,7 +82,7 @@ module.exports = () => {
     try {
       const auth = {
         username: usernameAccount,
-        password: '5f9d37722ffccdbb8b308225cb328e39-us4'
+        password: `${MAILCHIMP_API_KEY}-${MAILCHIMP_API_SERVER_PREFIX}`
       };
 
       const response = await mailchimpAuthRequest({

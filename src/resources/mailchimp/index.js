@@ -36,6 +36,7 @@ const authorize = async (req, res) => {
 
     return res.status(Status.OK).json(Success({ access_token }));
   } catch (err) {
+    console.log(err);
     return res.status(Status.UNAUTHORIZED).json(Fail('Error to authenticate with Mailchimp.'));
   }
 };

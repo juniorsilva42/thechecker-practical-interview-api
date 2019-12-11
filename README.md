@@ -69,6 +69,13 @@ $ git clone git@github.com:jsiilva1/thechecker-practical-test
 $ yarn or npm install
 
 ```
+3.  **Setup project config on .env (especially mailchimp API key)**
+
+```sh
+
+$ `env file configs`
+
+```
 
 1.  **Start development live server**
 
